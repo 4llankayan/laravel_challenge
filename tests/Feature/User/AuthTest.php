@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class AuthTest extends TestCase
 {
-    private const ENDPOINT = '/api';
+    private const ENDPOINT = '/api/auth';
 
     /** @test */
     public function assertSuccessRegister(): void {
