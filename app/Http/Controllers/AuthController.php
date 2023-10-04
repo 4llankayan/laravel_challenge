@@ -5,16 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\Auth\LoginRequest;
+use App\Http\Requests\User\Auth\RegisterRequest;
+use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class AuthController extends Controller
 {
-    public function login(Request $request) {
-        $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-        ]);
+    public function login(LoginRequest $request) {
+        $validated = $request->validated();
 
-        $credentials = $request->only('email', 'password');
+        $credentials = [
+            'email' => $validated['email'],
+            'password' => $validated['password']
+        ];
 
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
@@ -23,18 +27,28 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
-    public function register(Request $request) {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
-        ]);
+    public function register(RegisterRequest $request) {
+        $validated = $request->validated();
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password,
-        ]);
+        DB::beginTransaction();
+
+        try {
+            $user = User::create([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'password' => $validated['password'],
+            ]);
+
+            DB::commit();
+        } catch (Throwable $th) {
+            DB::rollBack();
+
+            return response()->json([
+                'status' => 'failed',
+                'message' => $th->getMessage(),
+            ]);
+        }
+
 
         $token = auth()->login($user);
 
