@@ -52,6 +52,13 @@ class ProductController extends Controller
     public function show($id) {
         $product = Product::find($id);
 
+        if (is_null($product)) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'Product not found',
+            ], 404);
+        }
+
         return response()->json([
             'status' => 'success',
             'product' => $product,
@@ -60,7 +67,15 @@ class ProductController extends Controller
 
     public function update(UpdateRequest $request, $id) {
         $validated = $request->validated();
+
         $product = Product::find($id);
+
+        if (is_null($product)) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'Product not found',
+            ], 404);
+        }
 
         DB::beginTransaction();
 
@@ -91,6 +106,13 @@ class ProductController extends Controller
 
     public function destroy($id) {
         $product = Product::find($id);
+
+        if (is_null($product)) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'Product not found',
+            ], 404);
+        }
 
         DB::beginTransaction();
 
