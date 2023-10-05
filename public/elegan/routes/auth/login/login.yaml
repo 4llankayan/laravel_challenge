@@ -1,0 +1,47 @@
+
+      tags:
+        - 'Auth'
+      summary: 'Fazer login'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        access_token:
+                          type: string
+                        token_type:
+                          type: string
+                        expires_in:
+                          type: integer
+        422:
+          $ref: '../../../responses/422.yaml'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+            examples:
+              valid_body:
+                value:
+                  email: 'example@example.com'
+                  password: '12345678'
