@@ -1,0 +1,15 @@
+      description: Unprocessable Content
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              errors:
+                type: object
+                properties:
+                  attribute:
+                    type: array
+                    items:
+                      type: string

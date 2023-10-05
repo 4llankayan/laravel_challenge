@@ -1,0 +1,15 @@
+openapi: 3.0.0
+info:
+  description: Description example
+  title: Title Example 
+  version: 0.0.0
+
+servers:
+  - url: /api
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: Sanctum
