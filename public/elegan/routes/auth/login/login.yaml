@@ -1,4 +1,19 @@
 
+      parameters:
+        - in: body
+          name: email
+          schema:
+            type: string
+            maximum: 255
+          required: true
+          description: Email do usuário
+        - in: body
+          name: password
+          schema:
+            type: string
+            minimum: 6
+          required: true
+          description: Senha do usuário
       tags:
         - 'Auth'
       summary: 'Fazer login'
