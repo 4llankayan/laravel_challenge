@@ -87,17 +87,16 @@ class ProductTest extends TestCase
         $response
                 ->assertStatus(200)
                 ->assertJsonFragment([
-                        'status' => 'success',
-                        'product' => [
-                            'id' => $product->id,
-                            'name' => $product->name,
-                            'price' => $product->price,
-                            'quantity' => $product->quantity,
-                            'description' => $product->description,
-                            'created_at' => $product->created_at,
-                            'updated_at' => $product->updated_at,
-                        ],
+                    'data' => [
+                        'id' => $product->id,
+                        'name' => $product->name,
+                        'price' => $product->price,
+                        'quantity' => $product->quantity,
+                        'description' => $product->description,
+                        'created_at' => $product->created_at,
+                        'updated_at' => $product->updated_at,
                     ]
+                ]
             );
     }
 
@@ -147,5 +146,4 @@ class ProductTest extends TestCase
         ]);
 
     }
-
 }

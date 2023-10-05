@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use App\Http\Requests\Product\StoreRequest;
 use App\Http\Requests\Product\UpdateRequest;
+use App\Http\Resources\Product\IndexResource;
+use App\Http\Resources\Product\ShowResource;
 use Throwable;
 
 class ProductController extends Controller
@@ -13,10 +15,7 @@ class ProductController extends Controller
     public function index() {
         $products = Product::all();
 
-        return response()->json([
-            'status' => 'success',
-            'products' => $products,
-        ]);
+        return IndexResource::collection($products);
     }
 
     public function store(StoreRequest $request) {
@@ -59,10 +58,7 @@ class ProductController extends Controller
             ], 404);
         }
 
-        return response()->json([
-            'status' => 'success',
-            'product' => $product,
-        ]);
+        return app(ShowResource::class, ['resource' => $product]);
     }
 
     public function update(UpdateRequest $request, $id) {
@@ -97,11 +93,7 @@ class ProductController extends Controller
             ]);
         }
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Product successfully updated',
-            'product' => $product,
-        ]);
+        return app(ShowResource::class, ['resource' => $product]);
     }
 
     public function destroy($id) {

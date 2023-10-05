@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ShoppingListController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -36,5 +37,19 @@ Route::middleware(['auth:api'])->controller(ProductController::class)->group(fun
         Route::get('/{id}', 'show');
         Route::put('/{id}', 'update');
         Route::delete('/{id}', 'destroy');
+    });
+});
+
+Route::middleware(['auth:api'])->controller(ShoppingListController::class)->group(function () {
+    Route::prefix('/shopping_lists')->group(function () {
+        Route::get('/', 'index');
+        Route::post('/', 'store');
+        Route::get('/{id}', 'show');
+        Route::post('/{id}/checkout', 'checkout');
+
+        Route::prefix('/{id}/products')->group(function () {
+            Route::post('/', 'addProduct');
+            Route::delete('/', 'removeProduct');
+        });
     });
 });
