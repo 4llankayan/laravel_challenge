@@ -25,3 +25,12 @@ paths:
     $ref: 'routes/products/actions.yaml'
   /products/{id}:
     $ref: 'routes/products/id/actions.yaml'
+  /shopping_lists:
+    $ref: 'routes/shopping_lists/actions.yaml'
+  /shopping_lists/{id}:
+    $ref: 'routes/shopping_lists/id/actions.yaml'
+  /shopping_lists/{id}/checkout:
+    $ref: 'routes/shopping_lists/id/checkout/actions.yaml'
+  /shopping_lists/{id}/products:
+    $ref: 'routes/shopping_lists/id/products/actions.yaml'
+

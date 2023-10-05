@@ -1,0 +1,43 @@
+
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: ID da Lista de Compra
+      security:
+        - bearerAuth: []
+      tags:
+        - 'Shopping Lists'
+      summary: 'Visualizar lista de compra'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      closed:
+                        type: boolean
+                      user_id:
+                        type: integer
+                      products:
+                        type: array
+                        items:
+                          type: object
+        401:
+          $ref: '../../../responses/401.yaml'
+        404:
+          $ref: '../../../responses/404.yaml'

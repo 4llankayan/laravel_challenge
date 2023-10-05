@@ -1,0 +1,59 @@
+
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: ID da Lista de Compra
+        - in: body
+          name: product_id
+          schema:
+            type: integer
+          required: true
+          description: ID do Produto
+      security:
+        - bearerAuth: []
+      tags:
+        - 'Shopping Lists - Products'
+      summary: 'Adicionar produto em uma lista de compra'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Product successfully added to the shopping list
+        400:
+          $ref: '../../../../responses/400.yaml'
+        401:
+          $ref: '../../../../responses/401.yaml'
+        403:
+          $ref: '../../../../responses/403.yaml'
+        422:
+          $ref: '../../../../responses/422.yaml'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                product_id:
+                  type: integer
+              required:
+                - product_id
+            examples:
+              valid_body:
+                value:
+                  product_id: 1
