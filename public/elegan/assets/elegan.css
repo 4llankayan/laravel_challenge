@@ -1,0 +1,267 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+body {
+    margin: 0;
+    position: relative;
+    overflow-x: hidden;
+    padding-bottom: 5rem;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    z-index: 1;
+}
+
+header a {
+    text-decoration: none;
+    font-size: 1rem;
+    color: #333;
+    font-weight: bold;
+}
+
+header ul {
+    font-family: 'Montserrat', sans-serif;
+    list-style-type: none;
+    padding: 1rem;
+    margin: 0;
+    border: 0;
+    background-color: #F2F2F2;
+}
+
+.patch-notes-wrapper {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.patch-notes-title {
+    font-family: 'Montserrat', sans-serif;
+    color: #3b4151;
+    padding: 0;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.patch-notes-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 400;
+}
+
+.patch-notes-subtitle a {
+    color: #10B881;
+    font-weight: bold;
+}
+
+.patch-notes-container {
+    position: relative;
+    width: 84%;
+    margin: auto;
+    padding: 0px 10px;
+    line-height: 3rem;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    border-left: 1rem solid #3b4151;
+    border-top-left-radius: 0.7rem;
+    border-bottom-left-radius: 0.7rem;
+    margin-bottom: 1rem;
+}
+
+.patch-notes-container details[open]:last-child {
+    padding-bottom: 1rem;
+}
+
+.patch-notes-container:hover {
+    background-color: rgba(111, 111, 111, 0.2);
+}
+
+details[open]:hover {
+    background-color: #fff;
+}
+
+.patch-notes-container:first-child {
+    border-left: 1rem solid #10B881;
+}
+
+.patch-notes-header {
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.patch-notes-header:hover {
+    cursor: pointer;
+}
+
+details[open] .patch-notes-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.patch-notes-header-version {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #3b4151;
+}
+
+.patch-notes-container:first-child .patch-notes-header-version::after {
+    content: 'Latest';
+    background-color: #10B881;
+    font-weight: bold;
+    font-size: 1rem;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 16px;
+}
+
+.patch-notes-header-title {
+    margin-right: auto;
+    font-size: 1rem;
+    color: #3b4151;
+    margin-left: 6px;
+}
+
+.patch-notes-header-title::before {
+    content: '>';
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.patch-note-date {
+    color: #3b4151;
+    margin-right: 6px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.patch-note-date::after {
+    content: '📅';
+}
+
+.patch-notes-content-title {
+    font-size: 1.1rem;
+    margin-left: 1rem;
+    font-weight: 500;
+    color: #444;
+}
+
+.patch-notes-content-tag {
+    font-size: 1rem;
+    margin-left: 1rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.patch-notes-description {
+    margin: 0;
+}
+
+.patch-notes-content-routes {
+    width: 100%;
+    border: 1px solid #3b4151;
+    background-color: #fff;
+}
+
+.patch-notes-content-routes tr:nth-child(1) th:nth-child(1) {
+    width: 75%;
+    max-width: 80%;
+    min-width: 60%;
+}
+
+.patch-notes-content-routes td {
+    text-align: center;
+    background-color: #F2F2F2;
+}
+
+.patch-notes-content-routes tr:hover>td {
+    background-color: #3b4151;
+    color: #fff;
+}
+
+.patch-notes-content-routes tr td {
+    line-height: 2rem;
+}
+
+.patch-notes-content-routes td:first-child {
+    text-align: left;
+}
+
+.patch-notes-content-routes td:nth-child(2) {
+    text-transform: capitalize;
+}
+
+.patch-notes-content-routes td:nth-child(3) {
+    text-transform: uppercase;
+}
+
+
+.patch-notes-content-routes th {
+    border-bottom: 1px solid #3b4151;
+    font-size: 1.2em;
+    color: #444;
+    padding: 0 8px;
+}
+
+.patch-notes-content-routes tr:last-child td:nth-child(1),
+.patch-notes-content-routes tr:last-child td:nth-child(2),
+.patch-notes-content-routes tr:last-child td:nth-child(3),
+.patch-notes-content-routes tr:last-child td:nth-child(4) {
+    border-bottom: 0px
+}
+
+.patch-notes-method-post {
+    background-color: #49CC90;
+}
+
+.patch-notes-method-get {
+    background-color: #61AFFE;
+}
+
+.patch-notes-method-put {
+    background-color: #FCA130;
+}
+
+.patch-notes-method-delete {
+    background-color: #F93E3E;
+}
+
+.patch-notes-method-default {
+    background-color: #3b4151;
+}
+
+.patch-notes-method {
+    color: #fff;
+    font-size: 1rem;
+    padding: 4px 14px;
+    border-radius: 16px;
+}
+
+.patch-note-endpoint-param {
+    font-weight: bold;
+}
+
+footer {
+    text-align: center;
+    background-color: #10B881;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    padding: 4px 0;
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+footer span {
+    font-weight: bold;
+}

@@ -1,0 +1,6 @@
+
+    get:
+      $ref: ./index.yaml
+
+    post:
+      $ref: ./store.yaml

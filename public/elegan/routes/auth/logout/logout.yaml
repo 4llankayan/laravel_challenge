@@ -1,0 +1,17 @@
+
+      security:
+        - bearerAuth: []
+      tags:
+        - 'Auth'
+      summary: 'Fazer logout'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      responses:
+        200:
+          $ref: '../../../responses/200.yaml'
+        401:
+          $ref: '../../../responses/401.yaml'
+        422:
+          $ref: '../../../responses/422.yaml'

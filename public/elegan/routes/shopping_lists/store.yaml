@@ -1,0 +1,72 @@
+
+      parameters:
+        - in: body
+          name: name
+          schema:
+            type: string
+          required: true
+          description: Nome do produto
+      security:
+        - bearerAuth: []
+      tags:
+        - 'Shopping Lists'
+      summary: 'Criar uma lista de compra'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Shopping List created successfully
+                  shopping_list:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      user_id:
+                        type: integer
+                      updated_at:
+                        type: string
+                      created_at:
+                        type: string
+                      id:
+                        type: integer
+        401:
+          $ref: '../../responses/401.yaml'
+        422:
+          $ref: '../../responses/422.yaml'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                user_id:
+                  type: integer
+                updated_at:
+                  type: string
+                created_at:
+                  type: string
+              required:
+                - name
+            examples:
+              valid_body:
+                value:
+                  name: 'example'
+                  user_id: 1
+                  updated_at: '2023-10-05T13:25:54.000000Z'
+                  created_at: '2023-10-05T13:25:54.000000Z'
+                  id: 1

@@ -1,0 +1,35 @@
+
+      security:
+        - bearerAuth: []
+      tags:
+        - 'Products'
+      summary: 'Listar todos produtos'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        price:
+                          type: integer
+                        quantity:
+                          type: integer
+                        description:
+                          type: string
+        401:
+          $ref: '../../responses/401.yaml'

@@ -1,0 +1,94 @@
+
+      parameters:
+        - in: body
+          name: name
+          schema:
+            type: string
+            maximum: 255
+          required: true
+          description: Nome do usuário
+        - in: body
+          name: email
+          schema:
+            type: string
+            maximum: 255
+          required: true
+          description: Email do usuário
+        - in: body
+          name: password
+          schema:
+            type: string
+            minimum: 6
+          required: true
+          description: Senha do usuário
+      tags:
+        - 'Auth'
+      summary: 'Registro de usuário'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        status:
+                          type: string
+                          example: success
+                        message:
+                          type: string
+                          example: User created successfully
+                        user:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            email:
+                              type: string
+                            updated_at:
+                              type: string
+                            created_at:
+                              type: string
+                            id:
+                              type: integer
+                        authorization:
+                          type: object
+                          properties:
+                            token:
+                              type: string
+                            type:
+                              type: string
+                              example: bearer
+        422:
+          $ref: '../../../responses/422.yaml'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - name
+                - email
+                - password
+            examples:
+              valid_body:
+                value:
+                  name: 'example'
+                  email: 'example@example.com'
+                  password: '12345678'

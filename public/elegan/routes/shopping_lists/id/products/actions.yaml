@@ -1,0 +1,6 @@
+
+    post:
+      $ref: ./store.yaml
+
+    delete:
+      $ref: ./destroy.yaml
