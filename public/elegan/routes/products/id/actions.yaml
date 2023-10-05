@@ -1,0 +1,9 @@
+
+    get:
+      $ref: ./show.yaml
+
+    put:
+      $ref: ./update.yaml
+
+    delete:
+      $ref: ./destroy.yaml

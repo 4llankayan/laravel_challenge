@@ -1,0 +1,24 @@
+
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: ID do Produto
+      security:
+        - bearerAuth: []
+      tags:
+        - 'Products'
+      summary: 'Deletar um produto'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      responses:
+        200:
+          $ref: '../../../responses/200.yaml'
+        204:
+          $ref: '../../../responses/204.yaml'
+        401:
+          $ref: '../../../responses/401.yaml'

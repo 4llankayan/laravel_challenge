@@ -1,0 +1,73 @@
+
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: body
+          name: name
+          schema:
+            type: string
+          required: true
+          description: Nome do produto
+        - in: body
+          name: price
+          schema:
+            type: integer
+          required: true
+          description: Preço do produto
+        - in: body
+          name: quantity
+          schema:
+            type: integer
+          required: true
+          description: Quantidade do produto
+        - in: body
+          name: description
+          schema:
+            type: string
+          required: false
+          description: Descrição do produto
+      tags:
+        - 'Products'
+      summary: 'Criar um produto'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      responses:
+        200:
+          $ref: '../../responses/200.yaml'
+        401:
+          $ref: '../../responses/401.yaml'
+        422:
+          $ref: '../../responses/422.yaml'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  maximum: 255
+                price:
+                  type: integer
+                  minimum: 0
+                quantity:
+                  type: integer
+                  minumum: 0
+                description:
+                  type: string
+                  maximum: 255
+              required:
+                - name
+                - price
+                - quantity
+            examples:
+              valid_body:
+                value:
+                  id: 1
+                  name: 'Example'
+                  price: 100
+                  quantity: 10
+                  description: 'Example product description'
+

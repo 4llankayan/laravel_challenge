@@ -21,4 +21,7 @@ paths:
     $ref: 'routes/auth/register/actions.yaml'
   /auth/logout:
     $ref: 'routes/auth/logout/actions.yaml'
-
+  /produts:
+    $ref: 'routes/products/actions.yaml'
+  /products/{id}:
+    $ref: 'routes/products/id/actions.yaml'

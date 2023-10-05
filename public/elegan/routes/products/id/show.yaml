@@ -1,0 +1,43 @@
+
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: ID do Produto
+      security:
+        - bearerAuth: []
+      tags:
+        - 'Products'
+      summary: 'Visualizar produto'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      price:
+                        type: integer
+                      quantity:
+                        type: integer
+                      description:
+                        type: string
+                      created_at:
+                        type: string
+                      updated_at:
+                        type: string
+        401:
+          $ref: '../../../responses/401.yaml'
