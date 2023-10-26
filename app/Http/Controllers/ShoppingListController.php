@@ -19,11 +19,11 @@ class ShoppingListController extends Controller
     public function index() {
         $user = auth()->user();
 
-        $shopping_lists = ShoppingList::with('products')
+        $shoppingLists = ShoppingList::with('products')
             ->where('user_id', $user->id)
             ->get();
 
-        return IndexResource::collection($shopping_lists);
+        return IndexResource::collection($shoppingLists);
     }
 
     public function store(StoreRequest $request) {
@@ -32,7 +32,7 @@ class ShoppingListController extends Controller
         $user = auth()->user();
 
         try {
-            $shopping_list = ShoppingList::create([
+            $shoppingList = ShoppingList::create([
                 'name' => $validated['name'],
                 'user_id' => $user->id,
             ]);
@@ -46,45 +46,45 @@ class ShoppingListController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Shopping List created successfully',
-            'shopping_list' => $shopping_list,
+            'shopping_list' => $shoppingList,
         ]);
     }
 
     public function show($id) {
         $user = auth()->user();
 
-        $shopping_list = ShoppingList::with('products')
+        $shoppingList = ShoppingList::with('products')
             ->findOrFail($id);
 
-        if ($shopping_list->user != $user) {
+        if ($shoppingList->user != $user) {
             return response()->json(['error' => 'You do not have permission to access this shopping list'], 403);
         }
 
-        return app(ShowResource::class, ['resource' => $shopping_list]);
+        return app(ShowResource::class, ['resource' => $shoppingList]);
     }
 
     public function addProduct($id, AddProductRequest $request) {
         $validated = $request->validated();
 
-        $shopping_list = ShoppingList::with('products')->findOrFail($id);
+        $shoppingList = ShoppingList::with('products')->findOrFail($id);
         $product = Product::findOrFail($validated['product_id']);
 
         $user = auth()->user();
 
-        if ($shopping_list->user != $user) {
+        if ($shoppingList->user != $user) {
             return response()->json(['message' => 'You do not have permission to add products this shopping list'], 403);
         }
 
-        if ($shopping_list->closed) {
+        if ($shoppingList->bought_at != null) {
             return response()->json(['message' => 'This shopping list is closed'], 400);
         }
 
-        if ($shopping_list->products->contains($product)) {
+        if ($shoppingList->products->contains($product)) {
             return response()->json(['message' => 'This product is already on the shopping list'], 400);
         }
 
         try {
-            $shopping_list->products()->syncWithoutDetaching($product);
+            $shoppingList->products()->syncWithoutDetaching($product);
         } catch (Throwable $th) {
             return response()->json([
                 'message' => $th->getMessage(),
@@ -108,7 +108,7 @@ class ShoppingListController extends Controller
             return response()->json(['message' => 'You do not have permission to remove products from this shopping list'], 403);
         }
 
-        if ($shoppingList->closed) {
+        if ($shoppingList->bought_at != null) {
             return response()->json(['message' => 'This shopping list is closed'], 400);
         }
 
@@ -130,21 +130,21 @@ class ShoppingListController extends Controller
     }
 
     public function checkout($id): JsonResponse {
-        $shopping_list = ShoppingList::with('products')->find($id);
+        $shoppingList = ShoppingList::with('products')->find($id);
 
         $user = auth()->user();
 
-        if ($shopping_list->user != $user) {
+        if ($shoppingList->user != $user) {
             return response()->json(['error' => 'You do not have permission to close this shopping list'], 403);
         }
 
-        if ($shopping_list->closed) {
+        if ($shoppingList->bought_at != null) {
             return response()->json(['error' => 'This shopping list is already closed'], 400);
         }
 
         try {
-            $shopping_list->update([
-                'closed' => true,
+            $shoppingList->update([
+                'bought_at' => now(),
             ]);
         } catch (Throwable $th) {
             return response()->json([
