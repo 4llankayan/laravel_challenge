@@ -14,7 +14,7 @@ class ShoppingList extends Model
 
     protected $fillable = [
         'name',
-        'closed',
+        'bought_at',
         'user_id',
     ];
 

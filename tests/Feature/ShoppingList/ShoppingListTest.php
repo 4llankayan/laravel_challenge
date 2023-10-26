@@ -46,7 +46,6 @@ class ShoppingListTest extends TestCase
 
         $shopping_list = ShoppingList::create([
             'name' => fake()->name(),
-            'closed' => 0,
             'user_id' => $user->id,
         ]);
 
@@ -60,7 +59,7 @@ class ShoppingListTest extends TestCase
                 'data' => [
                     'id' => $shopping_list->id,
                     'name' => $shopping_list->name,
-                    'closed' => $shopping_list->closed,
+                    'bought_at' => null,
                     'products' => [],
                     'user_id' => $shopping_list->user->id,
                 ]
@@ -75,7 +74,6 @@ class ShoppingListTest extends TestCase
 
         $shopping_list = ShoppingList::create([
             'name' => fake()->name(),
-            'closed' => 0,
             'user_id' => $user->id,
         ]);
 
@@ -104,7 +102,6 @@ class ShoppingListTest extends TestCase
 
         $shopping_list = ShoppingList::create([
             'name' => fake()->name(),
-            'closed' => 0,
             'user_id' => $user->id,
         ]);
 
@@ -131,7 +128,6 @@ class ShoppingListTest extends TestCase
 
         $shopping_list = ShoppingList::create([
             'name' => fake()->name(),
-            'closed' => 0,
             'user_id' => $user->id,
         ]);
 
@@ -141,7 +137,6 @@ class ShoppingListTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertJson([
-            'status' => 'success',
             'message' => 'Shopping List successfully closed'
         ]);
     }
@@ -245,7 +240,7 @@ class ShoppingListTest extends TestCase
 
         $shopping_list = ShoppingList::create([
             'name' => fake()->name(),
-            'closed' => 1,
+            'bought_at' => now(),
             'user_id' => $user->id,
         ]);
 
@@ -275,7 +270,7 @@ class ShoppingListTest extends TestCase
 
         $shopping_list = ShoppingList::create([
             'name' => fake()->name(),
-            'closed' => 1,
+            'bought_at' => now(),
             'user_id' => $user->id,
         ]);
 
@@ -305,7 +300,6 @@ class ShoppingListTest extends TestCase
 
         $shopping_list = ShoppingList::create([
             'name' => fake()->name(),
-            'closed' => 0,
             'user_id' => $user->id,
         ]);
 
@@ -335,7 +329,6 @@ class ShoppingListTest extends TestCase
 
         $shopping_list = ShoppingList::create([
             'name' => fake()->name(),
-            'closed' => 0,
             'user_id' => $user->id,
         ]);
 
