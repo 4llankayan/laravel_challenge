@@ -29,8 +29,9 @@
                         type: integer
                       name:
                         type: string
-                      closed:
-                        type: boolean
+                      bought_at:
+                        type: string
+                        format: date-time
                       user_id:
                         type: integer
                       products:
