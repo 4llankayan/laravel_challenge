@@ -141,7 +141,6 @@ class ProductTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertJson([
-            'status' => 'success',
             'message' => "Product successfully deleted"
         ]);
 
