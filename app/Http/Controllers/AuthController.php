@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Controllers\Controller;
@@ -12,7 +13,7 @@ use Throwable;
 
 class AuthController extends Controller
 {
-    public function login(LoginRequest $request) {
+    public function login(LoginRequest $request): JsonResponse {
         $validated = $request->validated();
 
         $credentials = [
@@ -27,7 +28,7 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
-    public function register(RegisterRequest $request) {
+    public function register(RegisterRequest $request): JsonResponse {
         $validated = $request->validated();
 
         DB::beginTransaction();
@@ -63,13 +64,13 @@ class AuthController extends Controller
         ]);
     }
 
-    public function logout() {
+    public function logout(): JsonResponse {
         auth()->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
     }
 
-    protected function respondWithToken($token) {
+    protected function respondWithToken($token): JsonResponse {
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
