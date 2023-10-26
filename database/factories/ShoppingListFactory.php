@@ -19,7 +19,7 @@ class ShoppingListFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'closed' => 0,
+            'bought_at' => now(),
             'user_id' => User::factory()->create()->id,
         ];
     }

@@ -17,9 +17,7 @@ return new class extends Migration
             $table
                 ->foreignId('user_id')
                 ->constrained();
-            $table
-                ->boolean('closed')
-                ->default(false);
+            $table->timestamp('bought_at')->nullable();
             $table->timestamps();
         });
     }

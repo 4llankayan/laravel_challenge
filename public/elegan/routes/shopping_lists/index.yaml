@@ -25,7 +25,8 @@
                           type: integer
                         name:
                           type: string
-                        closed:
-                          type: boolean
+                        bought_at:
+                          type: string
+                          format: date-time
         401:
           $ref: '../../responses/401.yaml'

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use App\Http\Requests\Product\StoreRequest;
@@ -12,51 +14,36 @@ use Throwable;
 
 class ProductController extends Controller
 {
-    public function index() {
+    public function index(): AnonymousResourceCollection {
         $products = Product::all();
 
         return IndexResource::collection($products);
     }
 
-    public function store(StoreRequest $request) {
+    public function store(StoreRequest $request): JsonResponse {
         $validated = $request->validated();
-
-        DB::beginTransaction();
 
         try {
             $product = Product::create([
                 'name' => $validated['name'],
                 'price' => $validated['price'],
                 'quantity' => $validated['quantity'],
-                'description' => $validated['description'],
+                'description' => $validated['description'] ?? null,
             ]);
-
-            DB::commit();
         } catch (Throwable $th) {
-            DB::rollBack();
-
             return response()->json([
-                'status' => 'failed',
                 'message' => $th->getMessage(),
-            ]);
+            ], 500);
         }
 
         return response()->json([
-            'status' => 'success',
             'message' => 'Product created successfully',
             'product' => $product,
         ]);
     }
 
-    public function show($id) {
-        $product = Product::find($id);
-
-        if (is_null($product)) {
-            return response()->json([
-                'status' => 'failed',
-                'message' => 'Product not found',
-            ], 404);
-        }
+    public function show($id): ShowResource {
+        $product = Product::findOrFail($id);
 
         return app(ShowResource::class, ['resource' => $product]);
     }
@@ -64,16 +51,7 @@ class ProductController extends Controller
     public function update(UpdateRequest $request, $id) {
         $validated = $request->validated();
 
-        $product = Product::find($id);
-
-        if (is_null($product)) {
-            return response()->json([
-                'status' => 'failed',
-                'message' => 'Product not found',
-            ], 404);
-        }
-
-        DB::beginTransaction();
+        $product = Product::findOrFail($id);
 
         try {
             $product->update([
@@ -82,47 +60,27 @@ class ProductController extends Controller
                 'quantity' => $validated['quantity'],
                 'description' => $validated['description'],
             ]);
-
-            DB::commit();
         } catch (Throwable $th) {
-            DB::rollBack();
-
             return response()->json([
-                'status' => 'failed',
                 'message' => $th->getMessage(),
-            ]);
+            ], 500);
         }
 
         return app(ShowResource::class, ['resource' => $product]);
     }
 
-    public function destroy($id) {
-        $product = Product::find($id);
-
-        if (is_null($product)) {
-            return response()->json([
-                'status' => 'failed',
-                'message' => 'Product not found',
-            ], 404);
-        }
-
-        DB::beginTransaction();
+    public function destroy($id): JsonResponse {
+        $product = Product::findOrFail($id);
 
         try {
             $product->delete();
-
-            DB::commit();
         } catch (Throwable $th) {
-            DB::rollBack();
-
             return response()->json([
-                'status' => 'failed',
                 'message' => $th->getMessage(),
-            ]);
+            ], 500);
         }
 
         return response()->json([
-            'status' => 'success',
             'message' => 'Product successfully deleted',
         ]);
     }
